@@ -1,17 +1,26 @@
+import net.dunice.buildSrc.ProjectConstants
+
 plugins {
-    id("java")
+    java
+    `kotlin-dsl`
 }
 
 group = "net.dunice.intensive"
 version = "1.0-SNAPSHOT"
 
-repositories {
-    mavenCentral()
+allprojects {
+    plugins.withType<JavaPlugin> {
+        plugins.apply(KotlinDslPlugin::class)
+
+        java {
+            version = ProjectConstants.JAVA_VERSION
+        }
+    }
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation(platform(libs.junit.bom))
+    testImplementation(libs.junit.jupiter)
 }
 
 tasks.test {
