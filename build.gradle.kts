@@ -5,24 +5,56 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "net.dunice.intensive"
 version = "1.0-SNAPSHOT"
 
 allprojects {
+    group = "net.dunice.intensive"
+
     plugins.withType<JavaPlugin> {
-        plugins.apply(KotlinDslPlugin::class)
+        apply<KotlinDslPlugin>()
 
         java {
             version = ProjectConstants.JAVA_VERSION
         }
+
+        dependencies {
+            compileOnly(libs.lombok)
+            annotationProcessor(libs.lombok)
+
+            testCompileOnly(libs.lombok)
+            testAnnotationProcessor(libs.lombok)
+
+            testImplementation(platform(libs.junit.bom))
+            testImplementation(libs.junit.jupiter)
+        }
+
+        tasks.test {
+            useJUnitPlatform()
+        }
     }
 }
 
-dependencies {
-    testImplementation(platform(libs.junit.bom))
-    testImplementation(libs.junit.jupiter)
+subprojects {
+    plugins.withType<JavaPlugin> {
+        tasks.compileJava {
+            doFirst {
+                copyLombokConfig(project)
+            }
+        }
+    }
 }
 
-tasks.test {
-    useJUnitPlatform()
+tasks.register(ProjectConstants.COPY_LOMBOK_CONFIG) {
+    group = "lombok"
+    description = "Copy the lombok config to all the subprojects"
+
+    doLast {
+        subprojects.forEach(::copyLombokConfig)
+    }
+}
+
+fun copyLombokConfig(project: Project) {
+    copy {
+        from(ProjectConstants.findLombokConfig(rootDir.path)).into(project.projectDir)
+    }
 }

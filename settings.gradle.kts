@@ -8,3 +8,4 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+include("java-basic-core-jvm")
