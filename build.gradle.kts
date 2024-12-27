@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 import net.dunice.buildSrc.ProjectConstants
 
 plugins {
@@ -48,7 +50,14 @@ allprojects {
             manifest.attributes(ProjectConstants.MAIN_CLASS_ATTRIBUTE to application.mainClass.get())
         }
     }
+
+    configurations {
+        all {
+            exclude(group = ProjectConstants.LOGBACK_GROUP)
+        }
+    }
 }
+
 
 subprojects {
     plugins.withType<JavaPlugin> {

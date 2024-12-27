@@ -11,5 +11,7 @@ object ProjectConstants {
 
     const val MAIN_CLASS_ATTRIBUTE = "Main-Class"
 
+    const val LOGBACK_GROUP = "ch.qos.logback"
+
     fun findLombokConfig(projectDir: String) = "$projectDir/lombok.config"
 }

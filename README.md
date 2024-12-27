@@ -11,4 +11,5 @@
    3. Удаление [дубликатов](java-basic-core-jvm/src/main/java/net/dunice/intensive/basics/RemoveDuplicates.java) целых значений из списка без изменения последовательности
    4. [Поиск](java-basic-core-jvm/src/main/java/net/dunice/intensive/basics/FindMax.java) максимального значения в списке без использования sort() и max()
    5. Создание собственных [исключений](java-basic-core-jvm/src/main/java/net/dunice/intensive/basics/UserAgeChecker.java) для валидации возраста
-   6. [Фильтрация](java-basic-core-jvm/src/main/java/net/dunice/intensive/basics/StreamApi.java) строк с длиной < 5 и преобразование оставшихся 
+   6. [Фильтрация](java-basic-core-jvm/src/main/java/net/dunice/intensive/basics/StreamApi.java) строк с длиной < 5 и преобразование оставшихся
+   7. [Поиск](java-basic-core-jvm/src/main/java/net/dunice/intensive/basics/spring/UserService.java) пользователя в Spring UserService 
