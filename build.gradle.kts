@@ -20,8 +20,10 @@ allprojects {
 
         java {
             toolchain {
-                languageVersion.set(ProjectConstants.JAVA_VERSION)
+                languageVersion.set(ProjectConstants.JAVA_23_VERSION)
             }
+            sourceCompatibility = JavaVersion.VERSION_21
+            targetCompatibility = JavaVersion.VERSION_21
         }
 
         dependencies {
@@ -35,18 +37,15 @@ allprojects {
             testImplementation(libs.junit.jupiter)
         }
 
-        java {
-            sourceCompatibility = JavaVersion.VERSION_21
-            targetCompatibility = JavaVersion.VERSION_21
-        }
-
-        tasks.jar {
-            archiveFileName.set(ProjectConstants.ARCHIVE_NAME)
-            manifest.attributes("Main-Class" to "net.dunice.intensive.Program")
-        }
-
         tasks.test {
             useJUnitPlatform()
+        }
+    }
+
+    plugins.withType<ApplicationPlugin> {
+        tasks.jar {
+            archiveFileName.set(ProjectConstants.ARCHIVE_NAME)
+            manifest.attributes(ProjectConstants.MAIN_CLASS_ATTRIBUTE to application.mainClass.get())
         }
     }
 }
