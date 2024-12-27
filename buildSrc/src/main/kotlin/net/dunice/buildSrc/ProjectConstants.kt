@@ -1,10 +1,11 @@
 package net.dunice.buildSrc
 
-import org.gradle.api.JavaVersion
+import org.gradle.jvm.toolchain.JavaLanguageVersion
 
 object ProjectConstants {
+    val JAVA_VERSION = JavaLanguageVersion.of(23)
 
-    val JAVA_VERSION = JavaVersion.VERSION_23
+    const val ARCHIVE_NAME = "app.jar"
 
     const val COPY_LOMBOK_CONFIG = "copyLombokConfig"
 

@@ -2,10 +2,15 @@ import net.dunice.buildSrc.ProjectConstants
 
 plugins {
     java
+    application
     `kotlin-dsl`
 }
 
 version = "1.0-SNAPSHOT"
+
+application {
+    mainClass = "net.dunice.intensive.Program"
+}
 
 allprojects {
     group = "net.dunice.intensive"
@@ -14,7 +19,9 @@ allprojects {
         apply<KotlinDslPlugin>()
 
         java {
-            version = ProjectConstants.JAVA_VERSION
+            toolchain {
+                languageVersion.set(ProjectConstants.JAVA_VERSION)
+            }
         }
 
         dependencies {
@@ -26,6 +33,16 @@ allprojects {
 
             testImplementation(platform(libs.junit.bom))
             testImplementation(libs.junit.jupiter)
+        }
+
+        java {
+            sourceCompatibility = JavaVersion.VERSION_21
+            targetCompatibility = JavaVersion.VERSION_21
+        }
+
+        tasks.jar {
+            archiveFileName.set(ProjectConstants.ARCHIVE_NAME)
+            manifest.attributes("Main-Class" to "net.dunice.intensive.Program")
         }
 
         tasks.test {
