@@ -10,3 +10,4 @@
    2. Построение [строки](java-basic-core-jvm/src/main/java/net/dunice/intensive/basics/StringConcatenation.java) с числами от 1 до 100, используя StringBuilder
    3. Удаление [дубликатов](java-basic-core-jvm/src/main/java/net/dunice/intensive/basics/RemoveDuplicates.java) целых значений из списка без изменения последовательности
    4. [Поиск](java-basic-core-jvm/src/main/java/net/dunice/intensive/basics/FindMax.java) максимального значения в списке без использования sort() и max()
+   5. Создание собственных [исключений](java-basic-core-jvm/src/main/java/net/dunice/intensive/basics/UserAgeChecker.java) для валидации возраста пользователя
