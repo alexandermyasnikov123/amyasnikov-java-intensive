@@ -7,3 +7,4 @@
 #### Практические задания:
 1. Java Basics - Core - JVM
    1. [Команда](java-basic-core-jvm/src/main/resources/scripts/archive_and_run.sh) для запуска Java-приложения myapp.jar с аргументами JVM
+   2. Построение [строки](java-basic-core-jvm/src/main/java/net/dunice/intensive/basics/StringConcatenation.java) с числами от 1 до 100, используя StringBuilder
