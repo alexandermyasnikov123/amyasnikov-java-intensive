@@ -12,18 +12,7 @@ public final class RemoveDuplicates {
 
     public static void main(String[] args) {
         try (var scanner = new Scanner(System.in)) {
-            final List<Integer> integers = new ArrayList<>();
-
-            System.out.println("Input a sequence of positive integers or a negative value to abort: ");
-
-            while (scanner.hasNextInt()) {
-                final var value = scanner.nextInt();
-                if (value < 0) {
-                    break;
-                }
-
-                integers.add(value);
-            }
+            final List<Integer> integers = ScannerUtils.inputIntegersList(scanner);
 
             System.out.println("""
                     Choose an algorithm to duplicates removing:
@@ -41,7 +30,6 @@ public final class RemoveDuplicates {
             System.out.printf("Initial list was: %n%s%n Sorted list is: %n%s%n", integers, sortedList);
         } catch (Exception e) {
             System.out.println("Invalid input was provided");
-            e.printStackTrace();
         }
     }
 
