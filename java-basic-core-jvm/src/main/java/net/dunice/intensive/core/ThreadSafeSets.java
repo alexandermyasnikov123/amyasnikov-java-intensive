@@ -36,7 +36,8 @@ public final class ThreadSafeSets {
                         strings.remove(name);
                         System.out.printf("Работает поток - %s, счётчик = %d%n", name, current);
                     }
-                })).toList();
+                }))
+                .toList();
 
         startAllAndJoin(threads);
 

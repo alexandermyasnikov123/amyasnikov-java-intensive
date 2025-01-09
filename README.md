@@ -15,3 +15,4 @@
    7. [Поиск](java-basic-core-jvm/src/main/java/net/dunice/intensive/basics/spring/UserService.java) пользователя в Spring UserService
 2. Java Concurrency
    1. Создание потокобезопасного [сета](java-basic-core-jvm/src/main/java/net/dunice/intensive/core/ThreadSafeSets.java) из 32 элементов 
+   2. [Запуск](java-basic-core-jvm/src/main/java/net/dunice/intensive/core/ForkJoinPools.java) двух [задач](java-basic-core-jvm/src/main/java/net/dunice/intensive/core/ParallelStreamRecursiveTask.java) в ForkJoinPool 
