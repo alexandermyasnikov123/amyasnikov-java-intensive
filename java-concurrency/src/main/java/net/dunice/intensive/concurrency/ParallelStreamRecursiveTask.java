@@ -1,4 +1,4 @@
-package net.dunice.intensive.core;
+package net.dunice.intensive.concurrency;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;

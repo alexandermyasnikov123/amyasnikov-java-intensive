@@ -9,3 +9,4 @@ dependencyResolutionManagement {
     }
 }
 include("java-basic-core-jvm")
+include("java-concurrency")
