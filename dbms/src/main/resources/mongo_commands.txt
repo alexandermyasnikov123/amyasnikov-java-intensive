@@ -1,0 +1,43 @@
+mongosh
+use java_intensive
+
+db.users.count()
+
+db.users.insertOne({ name: 'John', surname: 'Doe', age: 22, gender: 'M' })
+db.users.insertMany([{ name: 'Jane', surname: 'Doe', age: 23, gender: 'F', address: { city: 'New York' } }, { name: 'Jake', age: 45 } ])
+
+db.users.insertMany([{ name: "Ferg", tracks: ["Plain Jane", "Floor Seats"] }])
+
+db.users.find({ tracks: { $exists: true } }).limit(5)
+db.users.find({}, { _id: 0, tracks: 0 })
+
+db.pets.insertMany([ { name: "Barsik", type: "Cat" }, { name: "Barbos", type: "Dog" } ])
+db.pets.find()
+db.pets.find({}, { _id: 0 }).sort({ name: 1 })
+
+# Create fixed schema validation for the Mongo database collection
+db.createCollection("jobs", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         title: "Student Object Validation",
+         required: [ "address", "major", "name", "year" ],
+         properties: {
+            name: {
+               bsonType: "string",
+               description: "'name' must be a string and is required"
+            },
+            year: {
+               bsonType: "int",
+               minimum: 2017,
+               maximum: 3017,
+               description: "'year' must be an integer in [ 2017, 3017 ] and is required"
+            },
+            gpa: {
+               bsonType: [ "double" ],
+               description: "'gpa' must be a double if the field exists"
+            }
+         }
+      }
+   }
+} )
