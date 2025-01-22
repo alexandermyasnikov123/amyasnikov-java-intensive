@@ -1,14 +1,22 @@
 [versions]
 junit = "5.10.0"
 lombok = "1.18.36"
-spring = "3.4.1"
-h2 = "2.3.232"
+spring-boot = "3.4.1"
+spring-dependency-management = "1.1.7"
 
 [libraries]
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
-spring-boot = { module = "org.springframework.boot:spring-boot-starter", version.ref = "spring" }
-spring-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring" }
-spring-validation = { module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "spring" }
-spring-h2 = { module = "com.h2database:h2", version.ref = "h2" }
+spring-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
+spring-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
+spring-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+spring-h2 = { module = "com.h2database:h2" }
+spring-postgres = { module = "org.postgresql:postgresql" }
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
+
+[bundles]
+spring-web = ["spring-jpa", "spring-validation", "spring-web"]

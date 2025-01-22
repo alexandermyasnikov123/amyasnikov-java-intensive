@@ -8,5 +8,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
 include("java-basic-core-jvm")
 include("java-concurrency")
+include("spring_spring_boot")

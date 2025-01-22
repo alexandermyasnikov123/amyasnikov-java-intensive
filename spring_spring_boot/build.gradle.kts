@@ -6,10 +6,13 @@ plugins {
 }
 
 application {
-    mainClass.set("net.dunice.intensive.basics.UserGreeter")
+    mainClass = "net.dunice.intensive.spring_boot.SpringIntensiveApplication"
 }
+
+group = "net.dunice.intensive"
+version = "1.0-SNAPSHOT"
 
 dependencies {
     implementation(libs.bundles.spring.web)
-    runtimeOnly(libs.spring.h2)
+    runtimeOnly(libs.spring.postgres)
 }
