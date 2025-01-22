@@ -21,8 +21,7 @@ public final class WorkStealingExample {
                             .<Callable<Date>>mapToObj(i -> () -> {
                                 TimeUnit.SECONDS.sleep(3);
                                 return new Date();
-                            })
-                            .toList()
+                            }).toList()
             );
 
             System.out.println(futures.stream().map(future -> {
