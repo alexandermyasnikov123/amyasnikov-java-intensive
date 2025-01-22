@@ -13,6 +13,7 @@ spring-validation = { module = "org.springframework.boot:spring-boot-starter-val
 spring-web = { module = "org.springframework.boot:spring-boot-starter-web" }
 spring-h2 = { module = "com.h2database:h2" }
 spring-postgres = { module = "org.postgresql:postgresql" }
+spring-test = { module = "org.springframework.boot:spring-boot-starter-test" }
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }

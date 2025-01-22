@@ -18,6 +18,18 @@ import java.util.Set;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class QuizEntity {
+    public static final int TITLE_MIN_LENGTH = 3;
+
+    public static final int TITLE_MAX_LENGTH = 255;
+
+    public static final int DESCRIPTION_MIN_LENGTH = 10;
+
+    public static final int DESCRIPTION_MAX_LENGTH = 1000;
+
+    public static final int MIN_DIFFICULTY = 1;
+
+    public static final int MAX_DIFFICULTY = 100;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -25,8 +37,15 @@ public class QuizEntity {
     @Column(unique = true, nullable = false)
     String title;
 
+    @Column(nullable = false)
     Integer difficulty;
+
+    @Column(nullable = false, length = DESCRIPTION_MAX_LENGTH)
+    String description;
 
     @OneToMany(cascade = CascadeType.ALL)
     Set<AnswerEntity> answers;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    Set<QuizImageEntity> images;
 }

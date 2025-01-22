@@ -18,6 +18,10 @@ import lombok.experimental.FieldDefaults;
 @Table(indexes = @Index(name = "correct_answer_per_quiz_idx", columnList = "is_right, quiz_entity_id", unique = true))
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AnswerEntity {
+    public static final int MIN_ANSWER_LENGTH = 1;
+
+    public static final int MAX_ANSWER_LENGTH = 255;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

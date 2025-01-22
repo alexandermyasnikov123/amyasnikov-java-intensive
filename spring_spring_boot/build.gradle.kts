@@ -17,6 +17,8 @@ version = "1.0-SNAPSHOT"
 dependencies {
     implementation(libs.bundles.spring.web)
     runtimeOnly(libs.spring.postgres)
+
+    testImplementation(libs.spring.test)
 }
 
 tasks.build {
