@@ -13,5 +13,7 @@ object ProjectConstants {
 
     const val LOGBACK_GROUP = "ch.qos.logback"
 
+    const val GRADLE_COPY_CONFIG_NAME = "copyDockerEnvToProperties"
+
     fun findLombokConfig(projectDir: String) = "$projectDir/lombok.config"
 }

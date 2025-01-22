@@ -46,6 +46,8 @@ allprojects {
 
     plugins.withType<ApplicationPlugin> {
         tasks.jar {
+            enabled = !plugins.hasPlugin(libs.plugins.spring.boot.get().pluginId)
+
             archiveFileName.set(ProjectConstants.ARCHIVE_NAME)
             manifest.attributes(ProjectConstants.MAIN_CLASS_ATTRIBUTE to application.mainClass.get())
         }
