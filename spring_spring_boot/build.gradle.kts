@@ -18,6 +18,9 @@ dependencies {
     implementation(libs.bundles.spring.web)
     runtimeOnly(libs.spring.postgres)
 
+    implementation(libs.mapstruct)
+    annotationProcessor(libs.mapstruct.apt)
+
     testImplementation(libs.spring.test)
 }
 

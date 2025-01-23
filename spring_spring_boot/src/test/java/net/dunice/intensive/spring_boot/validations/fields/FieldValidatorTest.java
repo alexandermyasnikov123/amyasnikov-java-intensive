@@ -93,7 +93,6 @@ public class FieldValidatorTest {
     @Test
     public void checkValidatorProvidesRightMessageWhenStringSizeIsNotValid() {
         try (var validatorFactory = Validation.buildDefaultValidatorFactory()) {
-            final var expectedMessage = "Invalid field length. Must be at least 2 and at most 4 characters long.";
             final var validator = validatorFactory.getValidator();
 
             final var validationResults = Stream.of("asdasd", "123213123", "x")
@@ -102,7 +101,7 @@ public class FieldValidatorTest {
                     .toList();
 
             assertFalse(validationResults.isEmpty());
-            validationResults.forEach(message -> assertEquals(expectedMessage, message));
+            validationResults.forEach(message -> assertEquals(EXPECTED_LENGTH_MESSAGE, message));
         }
     }
 
