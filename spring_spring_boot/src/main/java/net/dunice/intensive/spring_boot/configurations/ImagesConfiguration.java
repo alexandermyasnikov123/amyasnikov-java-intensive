@@ -1,18 +1,17 @@
 package net.dunice.intensive.spring_boot.configurations;
 
 import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.bind.ConstructorBinding;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConfigurationProperties(prefix = "files.images")
-@Getter
-@RequiredArgsConstructor(onConstructor_ = @ConstructorBinding)
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Data
+@NoArgsConstructor
 public class ImagesConfiguration {
     long maxSizeBytes;
 
