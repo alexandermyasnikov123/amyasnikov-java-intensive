@@ -6,13 +6,14 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class GlobalRestExceptionHandler {
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    public ResponseEntity<Object> handleArgumentValidationExceptions(MethodArgumentNotValidException exception) {
+    public ResponseEntity<ErrorResponse> handleArgumentValidationExceptions(MethodArgumentNotValidException exception) {
         final var errorsMap = exception.getBindingResult().getFieldErrors()
                 .stream()
                 .collect(Collectors.groupingBy(
@@ -23,5 +24,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .badRequest()
                 .body(ErrorResponse.fromErrors(errorsMap));
+    }
+
+    @ExceptionHandler(value = NoSuchElementException.class)
+    public ResponseEntity<ErrorResponse> handleNoSuchElementException() {
+        return ResponseEntity
+                .notFound()
+                .build();
     }
 }

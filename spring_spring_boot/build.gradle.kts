@@ -21,6 +21,8 @@ dependencies {
     implementation(libs.mapstruct)
     annotationProcessor(libs.mapstruct.apt)
 
+    implementation(libs.thumbnailator)
+
     testImplementation(libs.spring.test)
 }
 

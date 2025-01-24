@@ -2,16 +2,12 @@ package net.dunice.intensive.spring_boot.mappers;
 
 import net.dunice.intensive.spring_boot.dtos.shared.QuizDto;
 import net.dunice.intensive.spring_boot.entities.QuizEntity;
-import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Mapper(
-        componentModel = MappingConstants.ComponentModel.SPRING,
-        injectionStrategy = InjectionStrategy.CONSTRUCTOR
-)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public abstract class QuizzesMapper {
     @Autowired
     protected ImagesMapper imagesMapper;
