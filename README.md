@@ -16,4 +16,6 @@
 2. Java Concurrency
    1. Создание потокобезопасного [сета](java-basic-core-jvm/src/main/java/net/dunice/intensive/core/ThreadSafeSets.java) из 32 элементов 
    2. [Запуск](java-concurrency/src/main/java/net/dunice/intensive/concurrency/ForkJoinPools.java) двух [задач](java-concurrency/src/main/java/net/dunice/intensive/concurrency/ParallelStreamRecursiveTask.java) в ForkJoinPool 
-   3. Разблокирующийся [демон поток](java-concurrency/src/main/java/net/dunice/intensive/concurrency/DaemonTask.java) 
+   3. Разблокирующийся [демон поток](java-concurrency/src/main/java/net/dunice/intensive/concurrency/DaemonTask.java)
+3. Spring, Spring Boot
+   1. Создание своего [Scope](spring_spring_boot/src/main/java/net/dunice/intensive/spring_boot/tasks/CachedPoolScope.java)
