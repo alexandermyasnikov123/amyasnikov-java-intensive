@@ -19,3 +19,4 @@
    3. Разблокирующийся [демон поток](java-concurrency/src/main/java/net/dunice/intensive/concurrency/DaemonTask.java)
 3. Spring, Spring Boot
    1. Создание своего [Scope](spring_spring_boot/src/main/java/net/dunice/intensive/spring_boot/tasks/CachedPoolScope.java)
+   2. [Поиск](spring_spring_boot/src/main/java/net/dunice/intensive/spring_boot/tasks/GetServices.java) всех Service бинов без использования рефлексии
