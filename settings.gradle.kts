@@ -12,3 +12,4 @@ dependencyResolutionManagement {
 include("java-basic-core-jvm")
 include("java-concurrency")
 include("spring_spring_boot")
+include("spring_core")

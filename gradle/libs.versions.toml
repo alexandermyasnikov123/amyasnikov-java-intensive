@@ -1,7 +1,7 @@
 [versions]
 junit = "5.10.0"
 lombok = "1.18.36"
-spring-boot = "3.4.1"
+spring-boot = "3.4.2"
 spring-dependency-management = "1.1.7"
 mapstruct = "1.6.3"
 thumbnailator = "0.4.20"
@@ -16,6 +16,7 @@ spring-web = { module = "org.springframework.boot:spring-boot-starter-web" }
 spring-h2 = { module = "com.h2database:h2" }
 spring-postgres = { module = "org.postgresql:postgresql" }
 spring-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+spring-boot = { module = "org.springframework.boot:spring-boot-starter" }
 mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapstruct" }
 mapstruct-apt = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapstruct" }
 thumbnailator = { module = "net.coobird:thumbnailator", version.ref = "thumbnailator" }
