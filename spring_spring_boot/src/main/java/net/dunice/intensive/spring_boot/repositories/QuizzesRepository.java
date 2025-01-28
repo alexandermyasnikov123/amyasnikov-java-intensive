@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface QuizzesRepository extends JpaRepository<QuizEntity, Long> {
     List<Long> deleteAllByIdIn(List<Long> ids);
+
+    List<Long> deleteAllEntries();
 }

@@ -7,7 +7,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
 import java.util.Set;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
@@ -21,7 +20,7 @@ public abstract class QuizzesMapper {
     @Mapping(target = "rightAnswer", expression = "java(answersMapper.mapRightAnswer(entity.getAnswers()))")
     @Mapping(target = "others", expression = "java(answersMapper.mapOthers(entity.getAnswers()))")
     @Mapping(target = "images", expression = "java(imagesMapper.mapToUrls(entity.getImages()))")
-    public abstract QuizResponse mapToDto(QuizEntity entity);
+    public abstract QuizResponse mapToResponse(QuizEntity entity);
 
     @Mapping(target = "images", expression = "java(imagesMapper.mapToEntities(images, quizEntity))")
     @Mapping(

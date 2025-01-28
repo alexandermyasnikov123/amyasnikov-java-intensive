@@ -12,12 +12,13 @@ import net.dunice.intensive.spring_boot.repositories.QuizzesRepository;
 import net.dunice.intensive.spring_boot.services.ImagesService;
 import net.dunice.intensive.spring_boot.services.QuizzesService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -36,7 +37,8 @@ public class QuizzesServiceImpl implements QuizzesService {
     private final String servicePath;
 
     @Override
-    public CreationResponse<Long> createQuiz(QuizRequest request, @Nullable List<MultipartFile> images) {
+    @CachePut(value = "quiz-by-id", key = "#result.data().id()")
+    public CreationResponse<QuizResponse> createQuiz(QuizRequest request, @Nullable List<MultipartFile> images) {
         List<String> imageUrls = null;
         try {
 
@@ -48,11 +50,11 @@ public class QuizzesServiceImpl implements QuizzesService {
                 }
             }).toList() : List.of();
 
-            final var id = quizzesRepository.save(
-                    quizzesMapper.mapToEntity(request, new HashSet<>(imageUrls))
-            ).getId();
+            final var quiz = quizzesMapper.mapToResponse(
+                    quizzesRepository.save(quizzesMapper.mapToEntity(request, new HashSet<>(imageUrls)))
+            );
 
-            return new CreationResponse<>(id, servicePath + MAPPING + id);
+            return new CreationResponse<>(quiz, servicePath + MAPPING + quiz.id());
         } catch (Exception e) {
             imagesService.deleteImages(imageUrls);
             throw new RuntimeException(e);
@@ -60,24 +62,33 @@ public class QuizzesServiceImpl implements QuizzesService {
     }
 
     @Override
+    @Cacheable(value = "quizzes", key = "#page and #pageSize")
     public PageResponse<QuizResponse> findAll(int page, int pageSize) {
         final var pageData = quizzesRepository.findAll(PageRequest.of(page - 1, pageSize));
-        final var quizzes = pageData.map(quizzesMapper::mapToDto).toList();
+        final var quizzes = pageData.map(quizzesMapper::mapToResponse).toList();
 
         return new PageResponse<>(quizzes, (long) pageData.getNumberOfElements(), pageData.getTotalElements());
     }
 
     @Override
+    @Cacheable(value = "quiz-by-id", key = "#id")
     public QuizResponse findById(Long id) {
         return quizzesRepository.findById(id)
-                .map(quizzesMapper::mapToDto)
+                .map(quizzesMapper::mapToResponse)
                 .orElseThrow();
     }
 
     @Override
-    public DeletionResponse<Long> deleteById(Long... ids) {
-        final var idsList = Arrays.asList(ids);
+    @CacheEvict(value = "quiz-by-id", key = "#result.deletedIds().first", condition = "not(#result.deletedIds().empty)")
+    public DeletionResponse<Long> deleteById(Long id) {
+        final var idsList = List.of(id);
 
         return new DeletionResponse<>(quizzesRepository.deleteAllByIdIn(idsList));
+    }
+
+    @Override
+    @CacheEvict(value = {"quizzes", "quiz-by-id"}, allEntries = true)
+    public DeletionResponse<Long> deleteAll() {
+        return new DeletionResponse<>(quizzesRepository.deleteAllEntries());
     }
 }
