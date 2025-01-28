@@ -31,7 +31,7 @@ public class MutableUserData implements AutoCloseable, InitializingBean, Disposa
     }
 
     public void init() {
-        setAge(12);
+        age = 12;
         System.out.println("Init called: " + this);
     }
 
