@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,7 +39,10 @@ public class QuizzesServiceImpl implements QuizzesService {
 
     @Override
     @CachePut(value = "quiz-by-id", key = "#result.data().id()")
-    public CreationResponse<QuizResponse> createQuiz(QuizRequest request, @Nullable List<MultipartFile> images) {
+    public CreationResponse<QuizResponse> createQuiz(
+            QuizRequest request,
+            @Nullable List<MultipartFile> images
+    ) {
         List<String> imageUrls = null;
         try {
 
@@ -62,7 +66,18 @@ public class QuizzesServiceImpl implements QuizzesService {
     }
 
     @Override
-    @Cacheable(value = "quizzes", key = "#page and #pageSize")
+    @Caching(
+            cacheable = @Cacheable(
+                    value = "quizzes",
+                    key = "#page and #pageSize",
+                    condition = "not(#result.data().empty)"
+            ),
+            evict = @CacheEvict(
+                    value = "quizzes",
+                    key = "#page and #pageSize",
+                    condition = "#result.data().empty"
+            )
+    )
     public PageResponse<QuizResponse> findAll(int page, int pageSize) {
         final var pageData = quizzesRepository.findAll(PageRequest.of(page - 1, pageSize));
         final var quizzes = pageData.map(quizzesMapper::mapToResponse).toList();
@@ -79,11 +94,14 @@ public class QuizzesServiceImpl implements QuizzesService {
     }
 
     @Override
-    @CacheEvict(value = "quiz-by-id", key = "#result.deletedIds().first", condition = "not(#result.deletedIds().empty)")
+    @CacheEvict(
+            value = "quiz-by-id",
+            key = "#result.deletedIds().first",
+            condition = "not(#result.deletedIds().empty)",
+            beforeInvocation = true
+    )
     public DeletionResponse<Long> deleteById(Long id) {
-        final var idsList = List.of(id);
-
-        return new DeletionResponse<>(quizzesRepository.deleteAllByIdIn(idsList));
+        return new DeletionResponse<>(quizzesRepository.deleteAllByIdIn(List.of(id)));
     }
 
     @Override
