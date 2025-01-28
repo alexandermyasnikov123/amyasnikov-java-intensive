@@ -18,6 +18,7 @@ spring-postgres = { module = "org.postgresql:postgresql" }
 spring-test = { module = "org.springframework.boot:spring-boot-starter-test" }
 spring-boot = { module = "org.springframework.boot:spring-boot-starter" }
 spring-aop = { module = "org.springframework.boot:spring-boot-starter-aop" }
+spring-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure" }
 mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapstruct" }
 mapstruct-apt = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapstruct" }
 thumbnailator = { module = "net.coobird:thumbnailator", version.ref = "thumbnailator" }
