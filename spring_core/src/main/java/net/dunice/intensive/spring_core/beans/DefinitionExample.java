@@ -2,7 +2,9 @@ package net.dunice.intensive.spring_core.beans;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.context.annotation.AnnotatedBeanDefinitionReader;
 import org.springframework.context.annotation.ScannedGenericBeanDefinition;
 import org.springframework.stereotype.Component;
 import java.util.Arrays;
@@ -14,9 +16,9 @@ public class DefinitionExample {
 
     @PostConstruct
     public void postConstruct() {
-        printScannedBeans();
+        /*printScannedBeans();
         printInConfigurationConfiguredBeans();
-        printXmlConfiguredBeans();
+        printXmlConfiguredBeans();*/
     }
 
     public void printScannedBeans() {

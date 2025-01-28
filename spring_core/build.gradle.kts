@@ -14,5 +14,6 @@ version = "1.0-SNAPSHOT"
 
 dependencies {
     implementation(libs.spring.boot)
+    implementation(libs.spring.aop)
     testImplementation(libs.spring.test)
 }
