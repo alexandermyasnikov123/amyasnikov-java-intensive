@@ -3,6 +3,7 @@ package net.dunice.intensive.spring_boot.controllers;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import net.dunice.intensive.spring_boot.dtos.requests.QuizRequest;
 import net.dunice.intensive.spring_boot.dtos.responses.PageResponse;
@@ -11,6 +12,7 @@ import org.hibernate.validator.constraints.Range;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +51,16 @@ public class QuizzesController {
             Integer pageSize
     ) {
         final var response = quizzesService.findAll(page, pageSize);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Object> findQuizById(
+            @Positive
+            @PathVariable
+            Long id
+    ) {
+        final var response = quizzesService.findById(id);
         return ResponseEntity.ok(response);
     }
 }
