@@ -1,0 +1,240 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1738222014490-1
+      author: dunice
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_answerentity
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: answer
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: is_right
+                  type: BOOLEAN
+              - column:
+                  name: quiz_entity_id
+                  type: BIGINT
+            tableName: answer_entity
+  - changeSet:
+      id: 1738222014490-2
+      author: dunice
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_quizentity
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: title
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: difficulty
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: description
+                  type: VARCHAR(1000)
+            tableName: quiz_entity
+  - changeSet:
+      id: 1738222014490-3
+      author: dunice
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_quizentity_answers
+                  name: quiz_entity_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_quizentity_answers
+                  name: answers_id
+                  type: BIGINT
+            tableName: quiz_entity_answers
+  - changeSet:
+      id: 1738222014490-4
+      author: dunice
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_quizentity_images
+                  name: quiz_entity_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_quizentity_images
+                  name: images_url
+                  type: VARCHAR(255)
+            tableName: quiz_entity_images
+  - changeSet:
+      id: 1738222014490-5
+      author: dunice
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_quizimageentity
+                  name: url
+                  type: VARCHAR(255)
+              - column:
+                  name: owner_id
+                  type: BIGINT
+            tableName: quiz_image_entity
+  - changeSet:
+      id: 1738222014490-6
+      author: dunice
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: answer
+            constraintName: uc_answerentity_answer
+            tableName: answer_entity
+  - changeSet:
+      id: 1738222014490-7
+      author: dunice
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: answers_id
+            constraintName: uc_quiz_entity_answers_answers
+            tableName: quiz_entity_answers
+  - changeSet:
+      id: 1738222014490-8
+      author: dunice
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: images_url
+            constraintName: uc_quiz_entity_images_images_url
+            tableName: quiz_entity_images
+  - changeSet:
+      id: 1738222014490-9
+      author: dunice
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: title
+            constraintName: uc_quizentity_title
+            tableName: quiz_entity
+  - changeSet:
+      id: 1738222014490-10
+      author: dunice
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: is_right
+              - column:
+                  name: quiz_entity_id
+            indexName: correct_answer_per_quiz_idx
+            tableName: answer_entity
+            unique: true
+  - changeSet:
+      id: 1738222014490-11
+      author: dunice
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: quiz_entity_id
+            baseTableName: answer_entity
+            constraintName: FK_ANSWERENTITY_ON_QUIZENTITY
+            referencedColumnNames: id
+            referencedTableName: quiz_entity
+  - changeSet:
+      id: 1738222014490-12
+      author: dunice
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: owner_id
+            baseTableName: quiz_image_entity
+            constraintName: FK_QUIZIMAGEENTITY_ON_OWNER
+            referencedColumnNames: id
+            referencedTableName: quiz_entity
+  - changeSet:
+      id: 1738222014490-13
+      author: dunice
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: answers_id
+            baseTableName: quiz_entity_answers
+            constraintName: fk_quientans_on_answer_entity
+            referencedColumnNames: id
+            referencedTableName: answer_entity
+  - changeSet:
+      id: 1738222014490-14
+      author: dunice
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: quiz_entity_id
+            baseTableName: quiz_entity_answers
+            constraintName: fk_quientans_on_quiz_entity
+            referencedColumnNames: id
+            referencedTableName: quiz_entity
+  - changeSet:
+      id: 1738222014490-15
+      author: dunice
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: quiz_entity_id
+            baseTableName: quiz_entity_images
+            constraintName: fk_quientima_on_quiz_entity
+            referencedColumnNames: id
+            referencedTableName: quiz_entity
+  - changeSet:
+      id: 1738222014490-16
+      author: dunice
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: images_url
+            baseTableName: quiz_entity_images
+            constraintName: fk_quientima_on_quiz_image_entity
+            referencedColumnNames: url
+            referencedTableName: quiz_image_entity
+
