@@ -62,7 +62,8 @@ public class QuizzesServiceImpl implements QuizzesService {
                     .fromUriString(servletRequest.getRequestURI())
                     .path("/" + quiz.id())
                     .encode()
-                    .toUriString()
+                    .build()
+                    .toUri()
             );
         } catch (Exception e) {
             imagesService.deleteImages(imageUrls);

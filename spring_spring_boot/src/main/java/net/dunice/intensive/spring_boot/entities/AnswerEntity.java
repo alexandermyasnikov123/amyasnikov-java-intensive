@@ -17,7 +17,10 @@ import lombok.experimental.FieldDefaults;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(indexes = @Index(name = "correct_answer_per_quiz_idx", columnList = "is_right, quiz_entity_id", unique = true))
+@Table(indexes = {
+        @Index(name = "correct_answer_per_quiz_idx", columnList = "is_right, quiz_entity_id", unique = true),
+        @Index(name = "answer_per_quiz_idx", columnList = "answer, quiz_entity_id", unique = true)
+})
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AnswerEntity {
     public static final int MIN_ANSWER_LENGTH = 1;
@@ -28,7 +31,7 @@ public class AnswerEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     String answer;
 
     @Column(nullable = false)

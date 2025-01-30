@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - preConditions:
+      - onFail: WARN
+      - tableExists:
+          tableName: answer_entity
+          schemaName: public
+      - tableExists:
+          tableName: quiz_entity
+          schemaName: public
+      - indexExists:
+          indexName: uc_answerentity_answer
+          columnNames:
+            - answer
+          tableName: answer_entity
+          schemaName: public
+  - changeSet:
+      id: 1738222014490-17
+      author: dunice
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropUniqueConstraint:
+            constraintName: uc_answerentity_answer
+            tableName: answer_entity
+            schemaName: public
+        - addUniqueConstraint:
+            constraintName: answer_per_quiz_idx
+            tableName: answer_entity
+            schemaName: public
+            columnNames: answer, quiz_entity_id

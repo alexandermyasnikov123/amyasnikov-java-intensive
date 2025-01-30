@@ -22,7 +22,7 @@ public class GlobalRestExceptionHandler {
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleArgumentValidationExceptions(MethodArgumentNotValidException exception) {
-        final var errorsMap = ExceptionUtils.extractMessagesForMethodParameters(exception);
+        final var errorsMap = ExceptionUtils.extractMessagesForParameters(exception);
         return ResponseEntity.badRequest().body(ErrorResponse.fromErrors(errorsMap));
     }
 

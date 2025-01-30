@@ -36,7 +36,7 @@ public class QuizzesController {
             HttpServletRequest servletRequest
     ) {
         final var response = quizzesService.createQuiz(request, images, servletRequest);
-        return ResponseEntity.created(URI.create(response.location())).build();
+        return ResponseEntity.created(response.location()).build();
     }
 
     @GetMapping

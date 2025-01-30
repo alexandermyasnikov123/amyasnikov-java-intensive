@@ -31,7 +31,7 @@ public final class ExceptionUtils {
                 .collect(Collectors.toMap(keyMapper, valueMapper));
     }
 
-    public static Map<String, Set<String>> extractMessagesForMethodParameters(MethodArgumentNotValidException exception) {
+    public static Map<String, Set<String>> extractMessagesForParameters(MethodArgumentNotValidException exception) {
         return exception.getBindingResult().getFieldErrors()
                 .stream()
                 .collect(Collectors.groupingBy(
