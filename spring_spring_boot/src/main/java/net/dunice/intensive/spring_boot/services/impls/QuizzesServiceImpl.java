@@ -1,7 +1,6 @@
 package net.dunice.intensive.spring_boot.services.impls;
 
 import jakarta.annotation.Nullable;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import net.dunice.intensive.spring_boot.dtos.requests.QuizRequest;
 import net.dunice.intensive.spring_boot.dtos.responses.CreationResponse;
@@ -21,7 +20,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
@@ -44,21 +43,26 @@ public class QuizzesServiceImpl implements QuizzesService {
     @CachePut(value = CACHE_BY_ID_NAME, key = "#result.data().id()")
     public CreationResponse<QuizResponse> createQuiz(
             QuizRequest request,
-            @Nullable List<MultipartFile> images,
-            HttpServletRequest servletRequest
+            @Nullable List<MultipartFile> images
     ) {
+
         final var imageUrls = images == null ? List.<String>of() : images.stream().map(file ->
                 imagesService.compressIfAbsentAndStoreSecure(
                         file,
-                        localPath -> "/images/" + Paths.get(localPath).getFileName().toString()
+                        localPath -> ServletUriComponentsBuilder
+                                .fromCurrentRequestUri()
+                                .replacePath("api/v1")
+                                .path("/images")
+                                .path("/" + Paths.get(localPath).getFileName().toString())
+                                .toUriString()
                 )
         ).toList();
 
         final var quiz = quizzesRepository.save(quizzesMapper.mapToEntity(request, new HashSet<>(imageUrls)));
         final var response = quizzesMapper.mapToResponse(quiz);
 
-        return new CreationResponse<>(response, UriComponentsBuilder
-                .fromUriString(servletRequest.getRequestURI())
+        return new CreationResponse<>(response, ServletUriComponentsBuilder
+                .fromCurrentRequestUri()
                 .path("/" + response.id())
                 .encode()
                 .build()
@@ -70,12 +74,12 @@ public class QuizzesServiceImpl implements QuizzesService {
     @Caching(
             cacheable = @Cacheable(
                     value = CACHE_BY_PAGE_AND_SIZE,
-                    key = "#page and #pageSize",
+                    key = "#page + '_' + #pageSize",
                     condition = "#result != null && not(#result.data().empty)"
             ),
             evict = @CacheEvict(
                     value = CACHE_BY_PAGE_AND_SIZE,
-                    key = "#page and #pageSize",
+                    key = "#page + '_' + #pageSize",
                     condition = "#result == null || #result.data().empty"
             )
     )

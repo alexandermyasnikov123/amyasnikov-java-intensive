@@ -33,10 +33,9 @@ public class QuizzesController {
             @RequestPart
             QuizRequest quiz,
             @RequestPart(required = false)
-            List<MultipartFile> images,
-            HttpServletRequest servletRequest
+            List<MultipartFile> images
     ) {
-        final var response = quizzesService.createQuiz(quiz, images, servletRequest);
+        final var response = quizzesService.createQuiz(quiz, images);
         return ResponseEntity.created(response.location()).build();
     }
 

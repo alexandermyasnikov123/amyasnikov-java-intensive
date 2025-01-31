@@ -1,7 +1,6 @@
 package net.dunice.intensive.spring_boot.services;
 
 import jakarta.annotation.Nullable;
-import jakarta.servlet.http.HttpServletRequest;
 import net.dunice.intensive.spring_boot.dtos.requests.QuizRequest;
 import net.dunice.intensive.spring_boot.dtos.responses.CreationResponse;
 import net.dunice.intensive.spring_boot.dtos.responses.DeletionResponse;
@@ -12,11 +11,7 @@ import java.util.List;
 
 public interface QuizzesService {
 
-    CreationResponse<QuizResponse> createQuiz(
-            QuizRequest request,
-            @Nullable List<MultipartFile> images,
-            HttpServletRequest servletRequest
-    );
+    CreationResponse<QuizResponse> createQuiz(QuizRequest request, @Nullable List<MultipartFile> images);
 
     PageResponse<QuizResponse> findAll(int page, int pageSize);
 
