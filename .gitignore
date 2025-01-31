@@ -1,6 +1,7 @@
 **/hidden*.properties
 **/hidden*.yaml
 **/hidden*.env
+**/resources/static/images
 
 .gradle
 build/
