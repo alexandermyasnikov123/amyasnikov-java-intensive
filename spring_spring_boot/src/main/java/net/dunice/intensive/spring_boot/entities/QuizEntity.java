@@ -46,10 +46,10 @@ public class QuizEntity {
     @Column(nullable = false, length = DESCRIPTION_MAX_LENGTH)
     String description;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     Set<AnswerEntity> answers;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     Set<QuizImageEntity> images;
 }
 
