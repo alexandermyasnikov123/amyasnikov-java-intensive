@@ -10,6 +10,7 @@ import net.dunice.intensive.spring_boot.dtos.responses.PageResponse;
 import net.dunice.intensive.spring_boot.services.QuizzesService;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +28,7 @@ public class QuizzesController {
     private final QuizzesService quizzesService;
 
     @PostMapping
-    public ResponseEntity<Object> createQuiz(
+    public ResponseEntity<?> createQuiz(
             @Valid
             @RequestPart
             QuizRequest quiz,
@@ -40,7 +41,7 @@ public class QuizzesController {
     }
 
     @GetMapping
-    public ResponseEntity<Object> findQuizzes(
+    public ResponseEntity<?> findQuizzes(
             @Min(value = PageResponse.MIN_PAGE_NUMBER)
             @RequestParam
             Integer page,
@@ -53,12 +54,28 @@ public class QuizzesController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Object> findQuizById(
+    public ResponseEntity<?> findQuizById(
             @Positive
             @PathVariable
             Long id
     ) {
         final var response = quizzesService.findById(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> deleteQuizById(
+            @Positive
+            @PathVariable
+            Long id
+    ) {
+        final var response = quizzesService.deleteById(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteAllQuizzes() {
+        final var response = quizzesService.deleteAll();
         return ResponseEntity.ok(response);
     }
 }

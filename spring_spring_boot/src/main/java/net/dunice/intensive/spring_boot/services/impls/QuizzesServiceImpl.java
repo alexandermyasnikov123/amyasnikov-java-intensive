@@ -8,6 +8,7 @@ import net.dunice.intensive.spring_boot.dtos.responses.CreationResponse;
 import net.dunice.intensive.spring_boot.dtos.responses.DeletionResponse;
 import net.dunice.intensive.spring_boot.dtos.responses.PageResponse;
 import net.dunice.intensive.spring_boot.dtos.responses.QuizResponse;
+import net.dunice.intensive.spring_boot.entities.QuizEntity;
 import net.dunice.intensive.spring_boot.mappers.QuizzesMapper;
 import net.dunice.intensive.spring_boot.repositories.QuizzesRepository;
 import net.dunice.intensive.spring_boot.services.ImagesService;
@@ -18,6 +19,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.nio.file.Paths;
@@ -38,6 +40,7 @@ public class QuizzesServiceImpl implements QuizzesService {
     private final QuizzesMapper quizzesMapper;
 
     @Override
+    @Transactional
     @CachePut(value = CACHE_BY_ID_NAME, key = "#result.data().id()")
     public CreationResponse<QuizResponse> createQuiz(
             QuizRequest request,
@@ -95,18 +98,27 @@ public class QuizzesServiceImpl implements QuizzesService {
     }
 
     @Override
+    @Transactional
     @CacheEvict(
             value = CACHE_BY_ID_NAME,
             key = "#result.deletedIds().first",
             condition = "not(#result.deletedIds().empty)"
     )
     public DeletionResponse<Long> deleteById(Long id) {
-        return new DeletionResponse<>(quizzesRepository.deleteAllByIdIn(List.of(id)));
+        final var isDeleted = quizzesRepository.deleteAllByIdIn(List.of(id)) > 0;
+        return new DeletionResponse<>(List.of(isDeleted ? id : -1L));
     }
 
     @Override
+    @Transactional
     @CacheEvict(value = {CACHE_BY_PAGE_AND_SIZE, CACHE_BY_ID_NAME}, allEntries = true)
     public DeletionResponse<Long> deleteAll() {
-        return new DeletionResponse<>(quizzesRepository.deleteAllEntries());
+        final var ids = quizzesRepository.findAll()
+                .stream()
+                .map(QuizEntity::getId)
+                .toList();
+
+        quizzesRepository.deleteAll();
+        return new DeletionResponse<>(ids);
     }
 }
