@@ -2,6 +2,7 @@ package net.dunice.intensive.spring_boot.services.impls;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
 import net.dunice.intensive.spring_boot.configurations.ImagesConfiguration;
 import net.dunice.intensive.spring_boot.services.ImagesService;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.nio.file.Files;
@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ThumbnailsImagesServiceImpl implements ImagesService {
@@ -74,16 +75,19 @@ public class ThumbnailsImagesServiceImpl implements ImagesService {
         return ensureImagesDirectory() + fileName;
     }
 
+    //FIXME. Не удаляет (?). Туда попадает images/img-*.jpg
     @Override
     public long deleteImages(List<String> urls) {
-        return urls.stream()
+        return urls
+                .stream()
                 .filter(url -> {
                     try {
                         final var fileName = URI.create(url).toURL().getFile();
                         final var filePath = ensureImagesDirectory() + fileName;
                         return Files.deleteIfExists(Paths.get(filePath));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                    } catch (Exception e) {
+                        log.error("Can't delete image file: {}", url, e);
+                        return false;
                     }
                 }).count();
     }
