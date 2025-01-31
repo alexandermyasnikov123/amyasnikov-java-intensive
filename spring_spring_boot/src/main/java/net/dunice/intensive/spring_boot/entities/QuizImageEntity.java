@@ -1,6 +1,7 @@
 package net.dunice.intensive.spring_boot.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
+@EntityListeners(value = ImagesEventListeners.class)
 @Entity
 @Data
 @NoArgsConstructor
@@ -26,3 +28,4 @@ public class QuizImageEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     QuizEntity owner;
 }
+

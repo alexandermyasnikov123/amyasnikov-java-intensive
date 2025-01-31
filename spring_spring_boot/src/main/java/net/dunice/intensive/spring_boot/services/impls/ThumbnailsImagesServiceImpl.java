@@ -11,8 +11,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -69,11 +69,19 @@ public class ThumbnailsImagesServiceImpl implements ImagesService {
     }
 
     @Override
+    @SneakyThrows
+    public String resolveImagePath(String fileName) {
+        return ensureImagesDirectory() + fileName;
+    }
+
+    @Override
     public long deleteImages(List<String> urls) {
         return urls.stream()
                 .filter(url -> {
                     try {
-                        return Files.deleteIfExists(Path.of(url));
+                        final var fileName = URI.create(url).toURL().getFile();
+                        final var filePath = ensureImagesDirectory() + fileName;
+                        return Files.deleteIfExists(Paths.get(filePath));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

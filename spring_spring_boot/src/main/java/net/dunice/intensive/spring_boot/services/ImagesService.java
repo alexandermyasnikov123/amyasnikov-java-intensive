@@ -5,7 +5,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 public interface ImagesService {
@@ -18,6 +17,8 @@ public interface ImagesService {
     String compressIfAbsentAndStore(InputStream inputStream, long imageSize);
 
     String ensureImagesDirectory();
+
+    String resolveImagePath(String requestUrl);
 
     long deleteImages(List<String> urls);
 
