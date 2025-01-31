@@ -11,7 +11,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
@@ -82,7 +81,7 @@ public class ThumbnailsImagesServiceImpl implements ImagesService {
                 .stream()
                 .filter(url -> {
                     try {
-                        final var fileName = URI.create(url).toURL().getFile();
+                        final var fileName = Paths.get(url).getFileName();
                         final var filePath = ensureImagesDirectory() + fileName;
                         return Files.deleteIfExists(Paths.get(filePath));
                     } catch (Exception e) {
