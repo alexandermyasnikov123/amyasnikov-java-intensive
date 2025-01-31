@@ -20,7 +20,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
-import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 
@@ -44,31 +44,23 @@ public class QuizzesServiceImpl implements QuizzesService {
             @Nullable List<MultipartFile> images,
             HttpServletRequest servletRequest
     ) {
-        List<String> imageUrls = null;
-        try {
-            imageUrls = images == null ? List.of() : images.stream().map(file -> {
-                try {
-                    return imagesService.compressIfAbsentAndStore(file.getInputStream(), file.getSize());
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }).toList();
+        final var imageUrls = images == null ? List.<String>of() : images.stream().map(file ->
+                imagesService.compressIfAbsentAndStoreSecure(
+                        file,
+                        localPath -> "/images/" + Paths.get(localPath).getFileName().toString()
+                )
+        ).toList();
 
-            final var quiz = quizzesMapper.mapToResponse(
-                    quizzesRepository.save(quizzesMapper.mapToEntity(request, new HashSet<>(imageUrls)))
-            );
+        final var quiz = quizzesRepository.save(quizzesMapper.mapToEntity(request, new HashSet<>(imageUrls)));
+        final var response = quizzesMapper.mapToResponse(quiz);
 
-            return new CreationResponse<>(quiz, UriComponentsBuilder
-                    .fromUriString(servletRequest.getRequestURI())
-                    .path("/" + quiz.id())
-                    .encode()
-                    .build()
-                    .toUri()
-            );
-        } catch (Exception e) {
-            imagesService.deleteImages(imageUrls);
-            throw new RuntimeException(e);
-        }
+        return new CreationResponse<>(response, UriComponentsBuilder
+                .fromUriString(servletRequest.getRequestURI())
+                .path("/" + response.id())
+                .encode()
+                .build()
+                .toUri()
+        );
     }
 
     @Override
