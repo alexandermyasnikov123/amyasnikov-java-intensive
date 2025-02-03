@@ -28,9 +28,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class QuizzesServiceImpl implements QuizzesService {
-    private static final String CACHE_BY_ID_NAME = "quiz-by-id";
+    public static final String CACHE_BY_ID_NAME = "quiz-by-id";
 
-    private static final String CACHE_BY_PAGE_AND_SIZE = "quizzes";
+    public static final String CACHE_BY_PAGE_AND_SIZE = "quizzes";
 
     private final ImagesService imagesService;
 

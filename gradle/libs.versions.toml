@@ -22,6 +22,7 @@ spring-aop = { module = "org.springframework.boot:spring-boot-starter-aop" }
 spring-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure" }
 spring-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
 spring-openapi = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "spring-openapi" }
+spring-redis = { module = "org.springframework.boot:spring-boot-starter-data-redis" }
 mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapstruct" }
 mapstruct-apt = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapstruct" }
 thumbnailator = { module = "net.coobird:thumbnailator", version.ref = "thumbnailator" }
@@ -32,4 +33,4 @@ spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
 spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
 
 [bundles]
-spring-web = ["spring-jpa", "spring-validation", "spring-web", "spring-actuator", "spring-openapi"]
+spring-web = ["spring-jpa", "spring-validation", "spring-web", "spring-actuator", "spring-openapi", "spring-redis"]
