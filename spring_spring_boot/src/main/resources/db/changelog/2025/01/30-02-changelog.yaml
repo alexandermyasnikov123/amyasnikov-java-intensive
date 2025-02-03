@@ -14,7 +14,7 @@ databaseChangeLog:
           tableName: answer_entity
           schemaName: public
   - changeSet:
-      id: 1738222014490-17
+      id: 17
       author: dunice
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
