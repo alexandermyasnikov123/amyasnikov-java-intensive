@@ -1,10 +1,23 @@
+name: mongo_and_redis
 services:
   mongo:
+    container_name: mongo_container
     image: mongo
+    env_file:
+      - ./hidden.env
     ports:
       - "27017:27017"
+    volumes:
+      - mongo_vault:/data/db
 
   redis:
+    container_name: redis_container
     image: redis
     ports:
       - "6379:6379"
+    volumes:
+      - redis_vault:/usr/local/etc/redis
+
+volumes:
+  mongo_vault:
+  redis_vault:
