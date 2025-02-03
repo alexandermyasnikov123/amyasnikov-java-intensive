@@ -1,0 +1,132 @@
+use bookStore
+
+db.createCollection("books", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            title: "Book object validator",
+            required: ["id", "title", "publishingYear", "authorName", "price", "amountOfPages"],
+            properties: {
+                id: {
+                    bsonType: "long",
+                    minimum: 1,
+                    description: "'id' must be >= 1"
+                },
+                title: {
+                    bsonType: "string",
+                    description: "the 'title' field is required"
+                },
+                publishingYear: {
+                    bsonType: "int",
+                    minimum: 1457,
+                    maximum: new Date().getFullYear(),
+                    description: "'year' must be in range [1457, current year]"
+                },
+                authorName: {
+                    bsonType: "string",
+                    description: "the 'author' field is required"
+                },
+                price: {
+                    bsonType: "decimal",
+                    description: "'price' must be valid decimal >= 0.0",
+                    minimum: 0.0
+                },
+                amountOfPages: {
+                    bsonType: "int",
+                    description: "'amountOfPages' must be >= 3",
+                    minimum: 3
+                }
+            }
+        }
+    }
+})
+
+db.books.insertMany([
+        {
+            "id": Long(1),
+            "title": "To Kill a Mockingbird",
+            "publishingYear": 1960,
+            "authorName": "Harper Lee",
+            "price": Decimal128("10.99"),
+            "amountOfPages": 281
+        },
+        {
+            "id": Long(2),
+            "title": "1984",
+            "publishingYear": 1949,
+            "authorName": "George Orwell",
+            "price": Decimal128("9.99"),
+            "amountOfPages": 328
+        },
+        {
+            "id": Long(3),
+            "title": "The Great Gatsby",
+            "publishingYear": 1925,
+            "authorName": "F. Scott Fitzgerald",
+            "price": Decimal128("14.50"),
+            "amountOfPages": 180
+        },
+        {
+            "id": Long(4),
+            "title": "Brave New World",
+            "publishingYear": 1932,
+            "authorName": "Aldous Huxley",
+            "price": Decimal128("11.99"),
+            "amountOfPages": 311
+        },
+        {
+            "id": Long(5),
+            "title": "The Catcher in the Rye",
+            "publishingYear": 1951,
+            "authorName": "J.D. Salinger",
+            "price": Decimal128("12.99"),
+            "amountOfPages": 277
+        },
+        {
+            "id": Long(6),
+            "title": "The Hobbit",
+            "publishingYear": 1937,
+            "authorName": "J.R.R. Tolkien",
+            "price": Decimal128("15.99"),
+            "amountOfPages": 310
+        },
+        {
+            "id": Long(7),
+            "title": "Fahrenheit 451",
+            "publishingYear": 1953,
+            "authorName": "Ray Bradbury",
+            "price": Decimal128("10.49"),
+            "amountOfPages": 249
+        },
+        {
+            "id": Long(8),
+            "title": "One Hundred Years of Solitude",
+            "publishingYear": 1967,
+            "authorName": "Gabriel Garcia Marquez",
+            "price": Decimal128("13.99"),
+            "amountOfPages": 417
+        },
+        {
+            "id": Long(9),
+            "title": "The Road",
+            "publishingYear": 2006,
+            "authorName": "Cormac McCarthy",
+            "price": Decimal128("9.49"),
+            "amountOfPages": 287
+        },
+        {
+            "id": Long(10),
+            "title": "The Night Circus",
+            "publishingYear": 2011,
+            "authorName": "Erin Morgenstern",
+            "price": Decimal128("11.79"),
+            "amountOfPages": 387
+        }
+    ]
+)
+
+print("Find the book with the title = '1984'")
+db.books.find({"title": "1984"}).limit(1).pretty()
+
+print("Find books with publishingYear < 1950")
+db.books.find({ "publishingYear" : { $lte : 1950 } }).pretty()
