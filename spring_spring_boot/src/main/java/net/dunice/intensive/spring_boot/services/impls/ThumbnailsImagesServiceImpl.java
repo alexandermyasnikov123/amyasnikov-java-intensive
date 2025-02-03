@@ -74,7 +74,6 @@ public class ThumbnailsImagesServiceImpl implements ImagesService {
         return ensureImagesDirectory() + fileName;
     }
 
-    //FIXME. Не удаляет (?). Туда попадает images/img-*.jpg
     @Override
     public long deleteImages(List<String> urls) {
         return urls

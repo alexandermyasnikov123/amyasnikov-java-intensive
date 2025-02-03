@@ -26,5 +26,7 @@
 - Простой REST API сервис для игры в викторины
 #### 5. DBMS (Data Base Managing Systems)
 > Вставьте содержимое следующих файлов в консоль mongosh после авторизации
-   1. Поиска книги с названием ["1984"](dbms/src/main/resources/mongo_tasks.txt)
-   2. Поиска книг, опубликованных [раньше 1950 года](dbms/src/main/resources/mongo_tasks.txt)
+   - Поиска книги с названием ["1984"](dbms/src/main/resources/mongo_tasks.txt)
+   - Поиска книг, опубликованных [раньше 1950 года](dbms/src/main/resources/mongo_tasks.txt)
+   - [Запросы](dbms/src/main/resources/tasks.sql) к таблицам `users`, `products`, `orders`
+   - [Оптимизация](dbms/src/main/resources/tasks.sql) запроса SQL

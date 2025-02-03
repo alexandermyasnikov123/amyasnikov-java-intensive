@@ -1,4 +1,4 @@
-name: mongo_and_redis
+name: databases
 services:
   mongo:
     container_name: mongo_container
@@ -18,6 +18,17 @@ services:
     volumes:
       - redis_vault:/usr/local/etc/redis
 
+  postgres:
+    container_name: postgres_container
+    env_file:
+      - ./hidden.env
+    image: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_vault:/var/lib/postgresql/data
+
 volumes:
   mongo_vault:
   redis_vault:
+  postgres_vault:
