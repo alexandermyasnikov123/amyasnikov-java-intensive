@@ -11,7 +11,7 @@ thumbnailator = "0.4.20"
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
-spring-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
+spring-data = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
 spring-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
 spring-web = { module = "org.springframework.boot:spring-boot-starter-web" }
 spring-h2 = { module = "com.h2database:h2" }
@@ -32,4 +32,4 @@ spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
 spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
 
 [bundles]
-spring-web = ["spring-jpa", "spring-validation", "spring-web", "spring-actuator", "spring-openapi"]
+spring-web = ["spring-data", "spring-validation", "spring-web", "spring-actuator", "spring-openapi"]
