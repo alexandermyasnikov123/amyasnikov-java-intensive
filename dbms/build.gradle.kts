@@ -13,7 +13,7 @@ group = "net.dunice.intensive"
 version = "1.0-SNAPSHOT"
 
 dependencies {
-    implementation(libs.spring.data)
+    implementation(libs.bundles.spring.data)
     implementation(libs.spring.boot)
     implementation(libs.spring.validation)
 
