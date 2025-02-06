@@ -1,0 +1,19 @@
+name: Brokers and Microservices
+services:
+  apache-kafka:
+    image: apache/kafka
+    container_name: kafka-broker
+    ports: [ "9092:9092" ]
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui
+    container_name: kafka-gui
+    ports: [ "8989:8080" ]
+    depends_on: [ apache-kafka ]
+    environment:
+      DYNAMIC_CONFIG_ENABLED: true
+
+  root-application:
+    container_name: root-application
+    ports: [ "8080:8080" ]
+    depends_on: [ apache-kafka ]
