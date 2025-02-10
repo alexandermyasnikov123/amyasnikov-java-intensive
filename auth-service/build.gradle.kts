@@ -18,6 +18,7 @@ dependencies {
         }
     }
     implementation(libs.spring.security)
+    implementation(libs.jwt.jose4j)
 
     runtimeOnly(libs.spring.postgres)
 }

@@ -1,6 +1,7 @@
 package net.dunice.intensive.auth_service.configurations;
 
 import lombok.RequiredArgsConstructor;
+import org.jose4j.jwe.JsonWebEncryption;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -8,12 +9,14 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.GroupManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Import(value = JdbcUserDetailsManager.class)
+@Import(value = {JdbcUserDetailsManager.class, BCryptPasswordEncoder.class, JsonWebEncryption.class})
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -28,11 +31,11 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.authorizeHttpRequests(authorization -> {
-            authorization
-                    .requestMatchers(properties.getFullPermitted()).permitAll()
-                    .requestMatchers(properties.getRequired()).authenticated();
-        }).build();
+        return http.authorizeHttpRequests(matchers -> matchers
+                        .requestMatchers(properties.getFullPermitted()).permitAll()
+                        .requestMatchers(properties.getRequired()).authenticated())
+                .formLogin(FormLoginConfigurer::disable)
+                .build();
     }
 
     @Bean

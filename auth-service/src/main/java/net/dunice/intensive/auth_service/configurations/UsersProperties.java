@@ -12,18 +12,18 @@ import java.util.List;
 @Configuration
 @ConfigurationProperties(prefix = "users")
 public class UsersProperties {
-    private List<UserData> predefined;
+    private List<UserProperty> predefined;
 
     private List<String> roles;
 
     @Data
     @Setter(value = AccessLevel.PACKAGE)
     @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-    public static class UserData {
+    public static class UserProperty {
         private String username;
 
         private String password;
 
-        private String role;
+        private List<String> role;
     }
 }

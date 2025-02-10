@@ -7,6 +7,7 @@ spring-openapi = "2.8.4"
 mapstruct = "1.6.3"
 thumbnailator = "0.4.20"
 ehcache = "3.10.0"
+jwt-jose4j = "0.9.6"
 
 [libraries]
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
@@ -30,6 +31,7 @@ mapstruct-apt = { module = "org.mapstruct:mapstruct-processor", version.ref = "m
 thumbnailator = { module = "net.coobird:thumbnailator", version.ref = "thumbnailator" }
 liquibase = { module = "org.liquibase:liquibase-core" }
 ehcache = { module = "org.ehcache:ehcache", version.ref = "ehcache" }
+jwt-jose4j = { module = "org.bitbucket.b_c:jose4j", version.ref = "jwt-jose4j" }
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
