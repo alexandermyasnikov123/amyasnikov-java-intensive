@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1
+      id: 1739177205706-1
       author: dunice
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -29,7 +29,7 @@ databaseChangeLog:
                   type: BIGINT
             tableName: answer_entity
   - changeSet:
-      id: 2
+      id: 1739177205706-2
       author: dunice
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -60,7 +60,7 @@ databaseChangeLog:
                   type: VARCHAR(1000)
             tableName: quiz_entity
   - changeSet:
-      id: 3
+      id: 1739177205706-3
       author: dunice
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -82,7 +82,7 @@ databaseChangeLog:
                   type: BIGINT
             tableName: quiz_entity_answers
   - changeSet:
-      id: 4
+      id: 1739177205706-4
       author: dunice
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -104,7 +104,7 @@ databaseChangeLog:
                   type: VARCHAR(255)
             tableName: quiz_entity_images
   - changeSet:
-      id: 5
+      id: 1739177205706-5
       author: dunice
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -122,16 +122,7 @@ databaseChangeLog:
                   type: BIGINT
             tableName: quiz_image_entity
   - changeSet:
-      id: 6
-      author: dunice
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - addUniqueConstraint:
-            columnNames: answer
-            constraintName: uc_answerentity_answer
-            tableName: answer_entity
-  - changeSet:
-      id: 7
+      id: 1739177205706-6
       author: dunice
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -140,7 +131,7 @@ databaseChangeLog:
             constraintName: uc_quiz_entity_answers_answers
             tableName: quiz_entity_answers
   - changeSet:
-      id: 8
+      id: 1739177205706-7
       author: dunice
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -149,7 +140,7 @@ databaseChangeLog:
             constraintName: uc_quiz_entity_images_images_url
             tableName: quiz_entity_images
   - changeSet:
-      id: 9
+      id: 1739177205706-8
       author: dunice
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -158,7 +149,21 @@ databaseChangeLog:
             constraintName: uc_quizentity_title
             tableName: quiz_entity
   - changeSet:
-      id: 10
+      id: 1739177205706-9
+      author: dunice
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: answer
+              - column:
+                  name: quiz_entity_id
+            indexName: answer_per_quiz_idx
+            tableName: answer_entity
+            unique: true
+  - changeSet:
+      id: 1739177205706-10
       author: dunice
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -172,7 +177,7 @@ databaseChangeLog:
             tableName: answer_entity
             unique: true
   - changeSet:
-      id: 11
+      id: 1739177205706-11
       author: dunice
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -183,7 +188,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: quiz_entity
   - changeSet:
-      id: 12
+      id: 1739177205706-12
       author: dunice
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -194,7 +199,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: quiz_entity
   - changeSet:
-      id: 13
+      id: 1739177205706-13
       author: dunice
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -205,7 +210,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: answer_entity
   - changeSet:
-      id: 14
+      id: 1739177205706-14
       author: dunice
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -216,7 +221,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: quiz_entity
   - changeSet:
-      id: 15
+      id: 1739177205706-15
       author: dunice
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -227,7 +232,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: quiz_entity
   - changeSet:
-      id: 16
+      id: 1739177205706-16
       author: dunice
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:

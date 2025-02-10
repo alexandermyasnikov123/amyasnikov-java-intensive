@@ -24,6 +24,7 @@ spring-aop = { module = "org.springframework.boot:spring-boot-starter-aop" }
 spring-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure" }
 spring-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
 spring-openapi = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "spring-openapi" }
+spring-security = { module = "org.springframework.boot:spring-boot-starter-security" }
 mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapstruct" }
 mapstruct-apt = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapstruct" }
 thumbnailator = { module = "net.coobird:thumbnailator", version.ref = "thumbnailator" }

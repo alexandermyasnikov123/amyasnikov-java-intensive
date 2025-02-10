@@ -1,4 +1,4 @@
-package net.dunice.intensive.brokers_microservices;
+package net.dunice.intensive.spring_boot;
 
 import lombok.NonNull;
 import java.util.Arrays;
@@ -29,12 +29,7 @@ public class SpinWords {
 
     public static String spinWords(@NonNull String input) {
         return Arrays.stream(input.split("\\s"))
-                .map(value -> value.length() >= EXPECTED_LENGTH ? reverseString(value) : value)
+                .map(value -> value.length() >= EXPECTED_LENGTH ? new StringBuilder(input).reverse() : value)
                 .collect(Collectors.joining(WHITESPACE_DELIMITER));
-    }
-
-    private static String reverseString(@NonNull String input) {
-        final var builder = new StringBuilder(input);
-        return builder.reverse().toString();
     }
 }
