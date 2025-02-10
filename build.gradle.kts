@@ -6,12 +6,14 @@ plugins {
     java
     application
     `kotlin-dsl`
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
 }
 
 version = "1.0-SNAPSHOT"
 
 application {
-    mainClass = "net.dunice.intensive.Program"
+    mainClass = "net.dunice.intensive.EurekaDiscoveryServerApplication"
 }
 
 allprojects {
@@ -69,6 +71,17 @@ subprojects {
             }
         }
     }
+}
+
+configurations.all {
+    libs.spring.web.get().let { springWeb ->
+        //exclude(group = springWeb.group, module = springWeb.name)
+    }
+}
+
+dependencies {
+    implementation(libs.spring.eureka.server)
+    implementation(libs.spring.api.gateway)
 }
 
 tasks.register(ProjectConstants.COPY_LOMBOK_CONFIG) {
