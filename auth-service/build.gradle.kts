@@ -21,6 +21,7 @@ dependencies {
     implementation(libs.jwt.jose4j)
 
     implementation(libs.spring.eureka.client)
+    implementation(libs.liquibase)
 
     runtimeOnly(libs.spring.postgres)
 }
