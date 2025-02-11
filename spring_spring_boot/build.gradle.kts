@@ -16,6 +16,7 @@ version = "1.0-SNAPSHOT"
 
 dependencies {
     implementation(libs.bundles.spring.web)
+    implementation(libs.spring.eureka.client)
     runtimeOnly(libs.spring.postgres)
 
     implementation(libs.mapstruct)
