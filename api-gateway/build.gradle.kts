@@ -15,4 +15,5 @@ version = "1.0-SNAPSHOT"
 dependencies {
     implementation(libs.spring.api.gateway)
     implementation(libs.spring.eureka.client)
+    implementation(libs.spring.feign)
 }

@@ -6,3 +6,5 @@ spring:
           predicates:
             - Path=/api/v1/quizzes/**
           uri: http://localhost:8081
+          filters:
+            - AuthFilter

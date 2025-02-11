@@ -20,6 +20,8 @@ dependencies {
     implementation(libs.spring.security)
     implementation(libs.jwt.jose4j)
 
+    implementation(libs.spring.eureka.client)
+
     runtimeOnly(libs.spring.postgres)
 }
 

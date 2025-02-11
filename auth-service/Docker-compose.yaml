@@ -1,4 +1,4 @@
-name: Brokers and Microservices
+name: Auth Service
 services:
   apache-kafka:
     image: apache/kafka
@@ -17,7 +17,7 @@ services:
 
   postgres-db:
     image: postgres
-    container_name: postgres-queries-db
+    container_name: postgres-auth-db
     networks: [ auth-same ]
     ports: [ "5431:5432" ]
     env_file: [ src/main/resources/hidden.env ]
