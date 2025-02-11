@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: quizzes-gateway
+          predicates:
+            - Path=/api/v1/quizzes/**
+          uri: http://localhost:8081

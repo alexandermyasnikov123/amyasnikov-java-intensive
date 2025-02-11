@@ -73,15 +73,8 @@ subprojects {
     }
 }
 
-configurations.all {
-    libs.spring.web.get().let { springWeb ->
-        //exclude(group = springWeb.group, module = springWeb.name)
-    }
-}
-
 dependencies {
     implementation(libs.spring.eureka.server)
-    implementation(libs.spring.api.gateway)
 }
 
 tasks.register(ProjectConstants.COPY_LOMBOK_CONFIG) {
