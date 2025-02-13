@@ -7,36 +7,36 @@ public class PathValidator {
 
     public static void main(String[] args) {
         final var paths = List.of(
-                new Boolean[][]{
+                new boolean[][]{
                         {true, true, true},
                         {true, true, true},
                         {true, false, false},
                         {true, true, true},
                         {true, true, true}
                 },
-                new Boolean[][]{
+                new boolean[][]{
                         {true, false, true, true},
                         {false, false, true, true},
                         {true, true, false, false},
                         {false, true, true, true},
                         {false, true, false, true}
                 },
-                new Boolean[][]{
+                new boolean[][]{
                         {true, true, true, true},
                         {true, true, true, true},
                         {false, false, false, false}
                 },
-                new Boolean[][]{
+                new boolean[][]{
                         {true},
                         {true},
                         {false}
                 },
-                new Boolean[][]{
+                new boolean[][]{
                         {true},
                         {true},
                         {true}
                 },
-                new Boolean[][]{
+                new boolean[][]{
                         {true, true},
                         {true, true},
                         {true, true}
@@ -64,7 +64,7 @@ public class PathValidator {
     }
 
     public static int findAvailablePaths(
-            final Boolean[][] grid,
+            final boolean[][] grid,
             final int rows,
             final int columns,
             int startRow,
