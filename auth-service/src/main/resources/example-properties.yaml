@@ -1,0 +1,7 @@
+# Rename this file to hidden-properties.yaml to correct launch
+users:
+  roles: [ "PUT", "REQUIRED", "ROLES", "HERE", "WITH", "UPPERCASE" ]
+  predefined:
+    - username: your_root_name
+      password: your_root_pass
+      role: your_root_role

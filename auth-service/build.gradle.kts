@@ -8,24 +8,22 @@ plugins {
 }
 
 application {
-    mainClass = "net.dunice.intensive.spring_boot.SpringIntensiveApplication"
+    mainClass = "net.dunice.intensive.auth_service.AuthServiceApplication"
 }
 
-group = "net.dunice.intensive"
-version = "1.0-SNAPSHOT"
-
 dependencies {
-    implementation(libs.bundles.spring.web)
+    implementation(libs.bundles.spring.web) {
+        libs.spring.openapi.get().let { openApi ->
+            exclude(group = openApi.group, module = openApi.module.name)
+        }
+    }
+    implementation(libs.spring.security)
+    implementation(libs.jwt.jose4j)
+
     implementation(libs.spring.eureka.client)
-    runtimeOnly(libs.spring.postgres)
-
-    implementation(libs.mapstruct)
-    annotationProcessor(libs.mapstruct.apt)
-
     implementation(libs.liquibase)
-    implementation(libs.thumbnailator)
 
-    testImplementation(libs.spring.test)
+    runtimeOnly(libs.spring.postgres)
 }
 
 tasks.build {
